@@ -1,14 +1,10 @@
 # dashboard_incidencias.py
 import pandas as pd
 import streamlit as st
+import altair as alt  # 👈 NUEVA LIBRERÍA
 
 # Cargar datos
-#df = pd.read_csv('/Users/luisadrianlopezmesa/Documents/Curso analisis y visualizacion de datos/incidencias.csv', sep=';', encoding='latin1')  # Usa sep='\t' si el CSV está separado por tabulaciones
 df = pd.read_csv('incidencias.csv', sep=';', encoding='latin1')
-
-
-print(df.columns.tolist())
-print(df.head())
 
 st.title("📊 Dashboard de Incidencias")
 
@@ -32,15 +28,38 @@ col1.metric("Total de Incidencias", len(df_filtrado))
 col2.metric("Tipos Distintos", df_filtrado['Tipo de Incidencia'].nunique())
 col3.metric("Personas Involucradas", df_filtrado['Persona asignada'].nunique())
 
-# Gráficas
+# 📊 Mejora de gráficas con Altair
 st.markdown("### Incidencias por Estado")
-st.bar_chart(df_filtrado['Estado'].value_counts())
+estado_chart = (
+    alt.Chart(df_filtrado)
+    .mark_bar()
+    .encode(
+        x=alt.X('count():Q', title='Cantidad'),
+        y=alt.Y('Estado:N', sort='-x', title='Estado'),
+        color='Estado:N',
+        tooltip=['Estado:N', 'count():Q']
+    )
+    .properties(height=300)
+)
+st.altair_chart(estado_chart, use_container_width=True)
 
 st.markdown("### Incidencias por Persona Asignada")
-st.bar_chart(df_filtrado['Persona asignada'].value_counts())
+persona_chart = (
+    alt.Chart(df_filtrado)
+    .mark_bar()
+    .encode(
+        x=alt.X('count():Q', title='Cantidad'),
+        y=alt.Y('Persona asignada:N', sort='-x', title='Persona'),
+        color='Persona asignada:N',
+        tooltip=['Persona asignada:N', 'count():Q']
+    )
+    .properties(height=400)
+)
+st.altair_chart(persona_chart, use_container_width=True)
 
 # Tabla de resultados
 st.markdown("### Detalle de Incidencias")
 st.dataframe(df_filtrado)
+
 
 
