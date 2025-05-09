@@ -3,7 +3,9 @@ import pandas as pd
 import streamlit as st
 
 # Cargar datos
-df = pd.read_csv('/Users/luisadrianlopezmesa/Documents/Curso analisis y visualizacion de datos/incidencias.csv', sep=';', encoding='latin1')  # Usa sep='\t' si el CSV está separado por tabulaciones
+#df = pd.read_csv('/Users/luisadrianlopezmesa/Documents/Curso analisis y visualizacion de datos/incidencias.csv', sep=';', encoding='latin1')  # Usa sep='\t' si el CSV está separado por tabulaciones
+df = pd.read_csv('incidencias.csv', sep=';', encoding='latin1')
+
 
 print(df.columns.tolist())
 print(df.head())
