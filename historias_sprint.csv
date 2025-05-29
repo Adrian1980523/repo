@@ -1,0 +1,5 @@
+id,titulo,estado,puntos,avance_manual,avance_restante
+1,Login de usuario,Done,5,10,90
+2,Registro de usuario,In Progress,8,45,55
+3,Restablecer contraseña,To Do,3,0,100
+4,Perfil de usuario,Done,5,0,100
